@@ -1,2 +1,2 @@
 # writeups
-Collection of writeups
+A collection of writeups
