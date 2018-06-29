@@ -33,3 +33,4 @@ Unlike some other programming contests, input is guaranteed. This means that you
 
 [USACO Training](http://train.usaco.org/usacogate) offers a set of problems that _mostly_ follows the USACO contest in scope. It serves as a nice training tool.
  
+In the following writeups, I'll be going through these problems. 
