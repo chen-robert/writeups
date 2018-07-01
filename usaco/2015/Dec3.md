@@ -75,4 +75,4 @@ A Java implementation is as follows
 ##### Range Sums
 Similarly, this technique can be applied to a Segment Tree for range sums. That implementation is left as an exercise to the reader. 
 
-My solution can be found at 
+My solution can be found [here](https://github.com/chen-robert/writeups/blob/master/usaco/2015/code/haybales.java)
