@@ -1,4 +1,4 @@
-### [Lots of Triangles]()
+### [Lots of Triangles](http://usaco.org/index.php?page=viewproblem2&cpid=672)
 
 #### Problem Statement
 >Farmer John is thinking of selling some of his land to earn a bit of extra income. His property contains n trees (3≤N≤300), each described by a point in the 2D plane, no three of which are collinear. FJ is thinking about selling triangular lots of land defined by having trees at their vertices;
