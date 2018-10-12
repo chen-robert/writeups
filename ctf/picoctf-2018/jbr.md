@@ -35,3 +35,5 @@ We also know the value of the last byte of the ciphertext that is xored with the
 Overall, we extract plaintext by calculating `0x1 ^ blocks[-2][-1] ^ prevBlock[-1]`. By shifting around the padding, we can extract more and more characters. 
 
 Note that we can only extract plaintext when `verify_mac` returns true. Because IV is randomized, there is a 1/256 chance that this attack works everytime. By brute forcing, we can eventually extract the entire plaintext.
+
+My implementation can be found [here](https://github.com/chen-robert/writeups/blob/master/ctf/external/jbr.java).
