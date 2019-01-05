@@ -43,16 +43,15 @@ public class itout {
 	}
 
 	public static int[] longestIncreasingSubsequence(int[] arr, long K) {
-		ST dp = new ST(arr.length + 1);
-		Arrays.fill(dp.tree, new PII(0, -1, -1, 0));
-		dp.update(arr.length, new PII(0, -1, -1, 1));
+		ST dp = new ST(0, arr.length);
+		dp.update(arr.length, new PII(0, 1));
 
 		int[] lenDp = new int[arr.length];
 		long[] kDp = new long[arr.length];
 
 		for (int i = arr.length - 1; i >= 0; i--) {
 			PII curr = dp.query(arr[i], arr.length);
-			PII toAdd = new PII(curr.dpVal + 1, arr[i], i, curr.size);
+			PII toAdd = new PII(curr.dpVal + 1, curr.size);
 			kDp[i] = curr.size;
 			lenDp[i] = toAdd.dpVal;
 
@@ -95,95 +94,64 @@ public class itout {
 	}
 
 	static class PII {
-		int dpVal;
-		int arrVal;
-		int idx;
-		long size;
+		final int dpVal;
+		final long size;
 
-		PII(int a, int b, int idx, long size) {
+		PII(int a, long size) {
 			dpVal = a;
-			arrVal = b;
-			this.idx = idx;
 			this.size = Math.min(size, (long) 1e18);
 		}
 
-		public boolean bigger(PII o) {
-			if (o == null) return true;
-			if (dpVal == o.dpVal) return arrVal > o.arrVal;
-			return dpVal > o.dpVal;
+		public PII combine(PII o) {
+			if (this.dpVal == o.dpVal) {
+				return new PII(this.dpVal, this.size + o.size);
+			}
+			return this.dpVal > o.dpVal ? this : o;
 		}
+
+		static PII init = new PII(0, 0);
+		static PII max = init;
 	}
 
 	static class ST {
+		PII val = PII.init;
+		int il, ir;
 
-		PII[] tree;
-		int n;
+		ST pl, pr;
 
-		public ST(int n) {
-			n = (int) Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
-			tree = new PII[2 * n - 1];
-
-			this.n = n;
+		public ST(int il, int ir) {
+			this.il = il;
+			this.ir = ir;
 		}
 
-		public PII combine(PII a, PII b) {
-			if (a == null) return b;
-			if (b == null) return a;
+		void expand() {
+			if (pl != null) return;
 
-			if (a.dpVal != b.dpVal) return a.bigger(b) ? a : b;
-			long retSize = a.size + b.size;
-			PII ret = a.bigger(b) ? new PII(a.dpVal, a.arrVal, a.idx, retSize)
-					: new PII(b.dpVal, b.arrVal, b.idx, retSize);
-			return ret;
+			int mid = (il + ir) / 2;
+			pl = new ST(il, mid);
+			pr = new ST(mid + 1, ir);
 		}
 
 		public void update(int idx, PII k) {
-			int curr = idx + n - 1;
-
-			tree[curr] = k;
-
-			while (curr > 0) {
-				curr = p(curr);
-
-				recalc(curr);
+			if (idx == il && ir == idx) {
+				val = k;
+				return;
 			}
+			if (idx > ir || il > idx) return;
+
+			expand();
+			pl.update(idx, k);
+			pr.update(idx, k);
+
+			val = pl.val.combine(pr.val);
 		}
 
-		public PII query(int left, int right) {
-			return query(0, left, right, 0, n - 1);
+		public PII query(int ql, int qr) {
+			if (ql <= il && ir <= qr) return val;
+			if (ql > ir || il > qr) return PII.max;
+
+			expand();
+			return pl.query(ql, qr).combine(pr.query(ql, qr));
 		}
-
-		public PII query(int idx, int ql, int qr, int il, int ir) {
-			if (ql <= il && ir <= qr) return tree[idx];
-
-			PII ret = null;
-			int mid = (il + ir) / 2;
-
-			if (ql <= mid) ret = query(l(idx), ql, qr, il, mid);
-			if (qr >= mid + 1) ret = combine(query(r(idx), ql, qr, mid + 1, ir), ret);
-			return ret;
-		}
-
-		public void recalc(int idx) {
-			if (l(idx) < tree.length) {
-				tree[idx] = tree[l(idx)];
-				if (r(idx) < tree.length) {
-					tree[idx] = combine(tree[idx], tree[r(idx)]);
-				}
-			}
-		}
-
-		int p(int n) {
-			return (n - 1) / 2;
-		}
-
-		int l(int n) {
-			return 2 * n + 1;
-		}
-
-		int r(int n) {
-			return l(n) + 1;
-		}
-
 	}
 }
