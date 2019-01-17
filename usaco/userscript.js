@@ -84,6 +84,7 @@ elem.innerHTML = `
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 1000; 
 }
 </style>
 <div id="injected-submit">
