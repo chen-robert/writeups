@@ -1,13 +1,17 @@
+title: Discord Bots
+---
+
 # How to Trigger Timmy (Discord Bots)
 Robert Chen
 
 ---
-<!-- page_number: true -->
+
 # Context
 Discord bots are cool.
 Let's make one to report on snow days? 
 
 ---
+
 # Problem
 Bad programming ethic. 
 

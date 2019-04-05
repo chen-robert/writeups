@@ -25,7 +25,7 @@ app.use("/slides", mds.middleware({
   view: "slides",
   preParse: markdownFile => {
     return {
-      title: markdownFile.meta,
+      title: markdownFile.meta.title || markdownFile.meta,
       rawContent: markdownFile.rawContent,
       content: markdownFile.parseContent()
     }
