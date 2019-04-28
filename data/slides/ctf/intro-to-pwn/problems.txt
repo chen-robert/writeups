@@ -1,0 +1,10 @@
+AngstromCTF Chain of Rope
+AngstromCTF Returns
+
+ASLR - Randomizes heap, stack, libraries
+` It is enabled by default in most Linux distributions if not all.`
+
+PIE - Randomizes code too
+
+Partial overwrites
+
