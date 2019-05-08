@@ -1,3 +1,6 @@
 template.md
 *.swp
 node_modules
+
+core
+peda-session-*
