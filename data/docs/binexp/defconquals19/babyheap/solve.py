@@ -70,6 +70,8 @@ Unsorted bins -> 7 -> 8
 where the number refers to the #th alloc. 
 
 Our index array is empty too.
+
+We create this setup so we `free()` will initialize the pointers from which we can read. The `fd` pointers of the tcache chunks contain a heap address. The `bk` pointer of the first unsorted bin contains a libc address.
 """
 
 # This is chunk 6, or the top of the tcache because tcache precedes fastbins
