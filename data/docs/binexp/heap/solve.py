@@ -2,8 +2,11 @@ from pwn import *
 
 e = ELF("./")
 libc = ELF("./libc.so.6")
-p = process(e.path, env={"LD_PRELOAD": libc.path})
-# p = remote("", )
+
+if "--remote" in sys.argv:
+  p = remote("", 0)
+else:
+  p = process(e.path, env={"LD_PRELOAD": libc.path})
 
 def alloc(p):
   p.clean()
