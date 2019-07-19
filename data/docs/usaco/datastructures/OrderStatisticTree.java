@@ -32,28 +32,18 @@ class OrderStatisticTree {
       }
     }
 
-    int sum(int n) {
+    int query(int k) {
       int ret = 0;
-      for (int i = n + 1; i > 0; i -= -i & i) {
-        ret += arr[i];
+      int curr = 0;
+
+      for (int i = 20; i >= 0; i--) {
+        if (ret + (1 << i) < arr.length && curr + arr[ret + (1 << i)] <= k) {
+          ret += 1 << i;
+          curr += arr[ret];
+        }
       }
 
       return ret;
-    }
-
-    int query(int k) {
-      int l = 0;
-      int r = n;
-      while (l < r) {
-        int mid = (l + r) / 2;
-
-        if (k < sum(mid))
-          r = mid;
-        else
-          l = mid + 1;
-      }
-
-      return l;
     }
   }
 }
