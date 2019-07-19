@@ -4,6 +4,7 @@ Order static tree.
 Supports O(lg N):
 - Insert
 - Delete
+- Index of element
 
 Supports O(lg^2 N):
 - Kth largest number
