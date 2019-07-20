@@ -16,11 +16,6 @@ class BinaryIndexedTree {
       }
     }
 
-    void update(int l, int r, int k) {
-      update(l, k);
-      update(r + 1, -k);
-    }
-
     int query(int a, int b) {
       return query(b) - query(a - 1);
     }
