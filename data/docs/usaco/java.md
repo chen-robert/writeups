@@ -41,3 +41,25 @@ Note the dimensional order of the objects array.
 ## Crafted Inputs
 
 Sometimes you can get TLE if organizers submit specifically crafted inputs to achieve worst-case time complexities for certain data structures. For example, java HashSet hash collisions can make operations O(N) instead of O(1). Another example of this can be found in the `Arrays.sort` method. Certain inputs can trigger the `O(N^2)` worst case runtime, timing out an otherwise working solution. To mitigate this, you can use java's `TreeSet` and `TreeMap` classes to guarantee an `O(lg N)` operation. Similarly, you can shuffle your arrays before sorting them.
+
+## Stack Size
+
+Sometimes the default stack size is not enough and will lead to stack overflow exceptions. Luckily, there is a simple way to allocate more memory to the stack by using a constructor for Thread, 
+
+```java
+Thread(ThreadGroup group, Runnable target, String name, long stackSize)
+```
+
+Just wrap your code around a
+
+```java
+new Thread(null, () -> {
+
+  // Your code here
+  Scanner in = new Scanner(System.in);
+  int n = in.nextInt();
+
+}, "", 100 * 1000 * 1000).start();
+```
+
+and the new Thread created will have access to 100mb of stack. 
