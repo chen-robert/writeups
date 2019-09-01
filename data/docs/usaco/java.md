@@ -40,7 +40,9 @@ Note the dimensional order of the objects array.
 
 ## Crafted Inputs
 
-Sometimes you can get TLE if organizers submit specifically crafted inputs to achieve worst-case time complexities for certain data structures. For example, java HashSet hash collisions can make operations O(N) instead of O(1). Another example of this can be found in the `Arrays.sort` method. Certain inputs can trigger the `O(N^2)` worst case runtime, timing out an otherwise working solution. To mitigate this, you can use java's `TreeSet` and `TreeMap` classes to guarantee an `O(lg N)` operation. Similarly, you can shuffle your arrays before sorting them.
+Sometimes you can get TLE if organizers submit specifically crafted inputs to achieve worst-case time complexities for certain data structures. For example, java HashSet hash collisions can make operations `O(N)` instead of `O(1)`. Another example of this can be found in the `Arrays.sort` method. Certain inputs can trigger the `O(N^2)` worst case runtime, timing out an otherwise working solution. To mitigate this, you can use java's `TreeSet` and `TreeMap` classes to guarantee an `O(lg N)` operation. Similarly, you can shuffle your arrays before sorting them.
+
+Note that the `Collections.sort` method uses mergesort, and thus is safe from crafted inputs (guaranteed `O(N lg N)` runtime). 
 
 ## Stack Size
 
