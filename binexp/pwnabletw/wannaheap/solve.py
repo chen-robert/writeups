@@ -6,7 +6,7 @@ libc = ELF("./libc.so")
 if "--remote" in sys.argv:
   p = remote("chall.pwnable.tw", 10308)
 else:
-  p = process(e.path, env={"LD_PRELOAD": libc.path})
+  p = process(["./ld-2.24.so", e.path], env={"LD_PRELOAD": libc.path})
 
 p.sendlineafter(":", str(0x313310))
 gdb.attach(p)

