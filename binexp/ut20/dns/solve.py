@@ -2,7 +2,7 @@ from pwn import *
 
 e = ELF("./pwnable")
 
-context.binary = e.path
+context.binary = e
 
 if "--remote" in sys.argv:
   p = remote("binary.utctf.live", 54, typ="udp")
