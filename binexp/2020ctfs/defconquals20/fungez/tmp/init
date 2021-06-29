@@ -1,0 +1,14 @@
+#!/bin/sh
+mkdir /tmp
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+insmod /ooo.ko
+mdev -s
+mknod /dev/fungez c 13 37
+chmod a+rw /dev/fungez
+setsid /bin/cttyhack setuidgid 1000 /bin/sh
+# /ooo 384 384 /map
+umount /proc
+umount /sys
+poweroff -d 0 -f

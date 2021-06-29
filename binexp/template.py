@@ -14,7 +14,7 @@ if is_remote:
   p = remote("", )
 else:
   p = process(e.path)
-  # {"LD_PRELOAD": libc.path})
+  #, env={"LD_PRELOAD": libc.path})
 
 
 debug()
